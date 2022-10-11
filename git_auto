@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . 
-git commit -m 'Merge sort'
+git commit -m 'Heap sort'
 git push
