@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . 
-git commit -m 'Quick sort'
+git commit -m 'Shell sort - Knuth Sequence'
 git push
