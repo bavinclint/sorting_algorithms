@@ -1,68 +1,87 @@
 #include "sort.h"
-/**
- * partition - partitions the array
- * @array: array to take in
- * @start: start of array;
- * @end: end of array
- * @size: full size of array
- * Return: position of pivot
- */
-int partition(int *array, int start, int end, int size)
-{
-	int pivot = array[end];
-	int i = start, j, temp;
 
-	for (j = start; j < end; j++)
+
+/**
+ * swap - swaps the elements of the array
+ * @a: first value that will be swapped
+ * @b: second value that will be swapped
+ */
+
+void swap(int *a, int *b)
+{
+	int tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+
+/**
+ * partition - helper function that splits an array
+ * @array: array that will be used
+ * @start: starting index
+ * @pivot: last index that is used as a pivot
+ * @size: size of array
+ *
+ * Return: new starting index
+ */
+
+int partition(int *array, int start, int pivot, size_t size)
+{
+	int j;
+
+	for (j = start; j <= pivot - 1; j++)
 	{
-		if (array[j] <= pivot)
+		if (array[j] <= array[pivot])
 		{
-			if (i != j)
+			if (start != j)
 			{
-				temp = array[i];
-				array[i] = array[j];
-				array[j] = temp;
+				swap(&array[start], &array[j]);
 				print_array(array, size);
 			}
-			i++;
+			start++;
 		}
 	}
-	if (i != end)
+	if (start != pivot)
 	{
-		temp = array[i];
-		array[i] = array[end];
-		array[end] = temp;
+		swap(&array[start], &array[pivot]);
 		print_array(array, size);
 	}
-	return (i);
+	return (start);
 }
-/**
- * quickSort - quick sorts with recursion
- * @array: array to sort through
- * @start: start of array or subarray
- * @end: end of array or subarray
- * @size: size of full array
- */
-void quickSort(int *array, int start, int end, int size)
-{
-	int pivot;
 
-	if (start < end)
-	{
-		pivot = partition(array, start, end, size);
-		quickSort(array, start, pivot - 1, size);
-		printf("%d start %d pivot %d size\n", start, pivot - 1, size);
-		quickSort(array, pivot + 1, end, size);
-		printf("%d start %d pivot %d size\n", start, pivot + 1, size);
-	}
-}
 /**
- * quick_sort - quick sorts an array
- * @array: array to sort
+ * sort - sort array after partition is executed
+ * @array: array that will be used
+ * @start: starting index
+ * @pivot: last index that is used as a pivot
  * @size: size of array
  */
+
+void sort(int *array, int start, int pivot, size_t size)
+{
+	int x;
+
+	if (start < pivot)
+	{
+		x = partition(array, start, pivot, size);
+		sort(array, start, x - 1, size);
+		sort(array, x + 1, pivot, size);
+	}
+}
+
+
+/**
+ * quick_sort - call functions to run quicksort algorithm
+ * @array: array being used
+ * @size: size of array
+ */
+
 void quick_sort(int *array, size_t size)
 {
-	if (array == NULL || size < 2)
-		return;
-	quickSort(array, 0, size - 1, size);
+	int start = 0;
+	int pivot = size - 1;
+
+	sort(array, start, pivot, size);
 }
