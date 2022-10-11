@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . 
-git commit -m 'Counting sort'
+git commit -m 'Merge sort'
 git push
