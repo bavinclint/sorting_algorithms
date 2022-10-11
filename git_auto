@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . 
-git commit -m 'Heap sort'
+git commit -m 'Radix sort'
 git push
