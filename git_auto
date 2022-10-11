@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . 
-git commit -m 'Cocktail shaker sort'
+git commit -m 'Counting sort'
 git push
