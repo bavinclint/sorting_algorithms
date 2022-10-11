@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . 
-git commit -m 'Shell sort - Knuth Sequence'
+git commit -m 'Cocktail shaker sort'
 git push
