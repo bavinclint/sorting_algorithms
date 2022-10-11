@@ -1,41 +1,50 @@
 #include "sort.h"
-/**
- * insertion_sort_list - function that sorts a doubly linked list
- *                       of integers in ascending order using the Insertion
- *                       sort algorithm
- * @list: doubly linked list
- * Return: void
- */
 
+/**
+ * insertion_sort_list - inserts right unsorted side into left sorted side
+ * @list: doubly linked list to sort
+ *
+ */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *node = NULL, *tmp = NULL;
+	listint_t *c, *p, *nextnode;
 
-	if (list == NULL || *list == NULL || (*list)->next == NULL)
+	if (list == NULL || !(*list) || (*list)->next == NULL)
 		return;
-
-	node = *list;
-	node = node->next;
-	while (node)
+	c = (*list)->next;
+	nextnode = c->next;
+	while (c)
 	{
-		while (node->prev && node->n < (node->prev)->n)
+		if (c->n < c->prev->n)
 		{
-			tmp = node;
-			if (node->next)
-				(node->next)->prev = tmp->prev;
-			(node->prev)->next = tmp->next;
-			node = node->prev;
-			tmp->prev = node->prev;
-			tmp->next = node;
-			if (node->prev)
-				(node->prev)->next = tmp;
-			node->prev = tmp;
-			if (tmp->prev == NULL)
-				*list = tmp;
-			print_list(*list);
-			node = node->prev;
+			p = c->prev;
+			while (p && (c->n < p->n))
+			{
+				if (!(p->prev))
+				{
+					p->prev = c;
+					c->prev->next = c->next;
+					if (c->next)
+						c->next->prev = c->prev;
+					c->next = p;
+					c->prev = NULL;
+					*list = c;
+				}
+				else
+				{
+					c->prev->next = c->next;
+					if (c->next)
+						c->next->prev = c->prev;
+					p->prev->next = c;
+					c->prev = p->prev;
+					p->prev = c;
+					c->next = p;
+				}
+				print_list(*list);
+				p = c->prev;
+			}
 		}
-		node = node->next;
+		c = nextnode;
+		c ? (nextnode = c->next) : (nextnode = NULL);
 	}
-
 }
