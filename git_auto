@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . 
-git commit -m 'Selection sort'
+git commit -m 'Quick sort'
 git push
